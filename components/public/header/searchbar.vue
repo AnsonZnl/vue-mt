@@ -5,7 +5,6 @@
         :span="3"
         class="left"
       >
-        <!-- 美团图标 -->
         <nuxt-link to="/">
           <img
             src="//s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png"
@@ -18,7 +17,6 @@
         class="center"
       >
         <div class="wrapper">
-          <!-- 搜索商家或地点 -->
           <el-input
             v-model="search"
             placeholder="搜索商家或地点"
@@ -29,7 +27,6 @@
           <button class="el-button el-button--primary">
             <i class="el-icon-search"/>
           </button>
-          <!-- 热门搜索 -->
           <dl
             v-if="isHotPlace"
             class="hotPlace"
@@ -63,7 +60,6 @@
             :href="'/products?keyword=' + encodeURIComponent(item.name)"
           >{{ item.name }}</a>
         </div>
-        <!-- 美团外卖 -->
         <ul class="nav">
           <li>
             <nuxt-link
@@ -97,7 +93,6 @@
           </li>
         </ul>
       </el-col>
-      <!-- 随时退 -->
       <el-col
         :span="6"
         class="right"
@@ -145,9 +140,8 @@ export default {
       this.isFocus = true
     },
     blur() {
-      const that = this
       setTimeout(() => {
-        that.isFocus = false
+        this.isFocus = false
       }, 200)
     },
     // _.debounce 延时函数

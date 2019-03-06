@@ -71,9 +71,8 @@ export default {
       this.kind = e.target.querySelector('i').className
     },
     navLeave() {
-      const that = this
-      that._timer = setTimeout(() => {
-        that.kind = ''
+      this._timer = setTimeout(() => {
+        this.kind = ''
       }, 150)
     },
     detailEnter() {
