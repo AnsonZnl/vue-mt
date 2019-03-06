@@ -50,7 +50,10 @@ router.get('/top', async(ctx) => {
 
 // http://localhost:3000/search/hotPlace?city=广州&type=景点
 router.get('/hotPlace', async(ctx) => {
-  /* 操作本地数据库 */
+  /*
+  操作本地数据库
+  ctx.query.city: store/index.js pass parameter
+   */
   const city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
   try {
     const result = await Poi.find({
