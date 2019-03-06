@@ -112,13 +112,13 @@ router.post('/signin', async(ctx, next) => {
   })(ctx, next)
 })
 
-router.get('/fix', async ctx => {
-  // Store.hset(`test`, "name", "111");
-  ctx.session.name = 'nidie'
-  ctx.body = {
-    code: 0
-  }
-})
+// router.get('/fix', async ctx => {
+//   // Store.hset(`test`, "name", "111");
+//   ctx.session.name = 'nidie'
+//   ctx.body = {
+//     code: 0
+//   }
+// })
 
 router.post('/verify', async(ctx, next) => {
   // register.vue pass parameter
@@ -196,6 +196,7 @@ router.get('/exit', async(ctx, next) => {
 router.get('/getUser', async ctx => {
   // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
   if (ctx.isAuthenticated()) {
+    // ctx.session.passport.user: 拿到 passport-koa 用户名和密码
     const { username, email } = ctx.session.passport.user
     ctx.body = {
       user: username,
