@@ -46,8 +46,7 @@
 </template>
 
 <script>
-// 加密
-import CryptoJS from 'crypto-js'
+import CryptoJS from 'crypto-js' // 加密
 export default {
   data: () => {
     return {
@@ -62,10 +61,8 @@ export default {
     login() {
       this.$axios
         .post('/users/signin', {
-          // encodeURIComponent: 对中文进行编码
-          username: window.encodeURIComponent(this.username),
-          // CryptoJS.MD5 加密
-          password: CryptoJS.MD5(this.password).toString()
+          username: window.encodeURIComponent(this.username), // encodeURIComponent: 对中文进行编码
+          password: CryptoJS.MD5(this.password).toString() // CryptoJS.MD5 加密
         })
         .then(({ status, data }) => {
           if (status === 200) {

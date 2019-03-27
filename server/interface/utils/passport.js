@@ -1,12 +1,8 @@
-// Passport middleware for Koa
-import passport from 'koa-passport'
-// Passport strategy for authenticating with a username and password.
-import LocalStrategy from 'passport-local'
-// mongodb
+import passport from 'koa-passport' // Passport middleware for Koa
+import LocalStrategy from 'passport-local' // Passport strategy for authenticating with a username and password.
 import UserModel from '../../dbs/models/users'
 
-// [Configure Strategy](https://www.npmjs.com/package/passport-local)
-passport.use(
+passport.use( // [Configure Strategy](https://www.npmjs.com/package/passport-local)
   new LocalStrategy(async function(username, password, done) {
     const where = { username }
     const result = await UserModel.findOne(where)
@@ -22,8 +18,7 @@ passport.use(
   })
 )
 
-// 用户信息保留在 session 存储中, defulat
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function(user, done) { // 用户信息保留在 session 存储中, defulat
   done(null, user)
 })
 

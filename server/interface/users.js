@@ -1,28 +1,26 @@
 import Router from 'koa-router'
-// Redis storage for koa session middleware/cache
-import Redis from 'koa-redis'
-// Send e-mails from Node.js – easy as cake
-import nodeMailer from 'nodemailer'
+import Redis from 'koa-redis' // Redis storage for koa session middleware/cache
+import nodeMailer from 'nodemailer' // Send e-mails from Node.js – easy as cake
 
 import User from '../dbs/models/users'
 import Passport from './utils/passport'
 import Email from '../dbs/config'
-// Promise based HTTP client for the browser and node.js
-import axios from './utils/axios'
+import axios from './utils/axios' // Promise based HTTP client for the browser and node.js
 
-// Routing prefix
-const router = new Router({
+const router = new Router({ // Routing prefix
   prefix: '/users'
 })
-// get redis client
-const Store = new Redis().client
+const Store = new Redis().client // get redis client
 
 router.post('/signup', async ctx => {
-  // get the data unload by the user (register.vue pass parameter)
-  const { username, email, code, password } = ctx.request.body
+  const {
+    username,
+    email,
+    code,
+    password
+  } = ctx.request.body // get user upload data (register.vue pass parameter)
   if (code) {
-    // redis hget() verifycode, hget() '/sigin' Store.hset()
-    const saveCode = await Store.hget(`nodemail:${username}`, 'code')
+    const saveCode = await Store.hget(`nodemail:${username}`, 'code') // redis hget() verifycode, hget() '/sigin' Store.hset()
     const saveExpire = await Store.hget(`nodemail:${username}`, 'expire')
     if (code === saveCode) {
       if (new Date().getTime() - saveExpire > 0) {
@@ -44,8 +42,7 @@ router.post('/signup', async ctx => {
       msg: '请填写验证码'
     }
   }
-  // username has been register
-  const user = await User.find({ username })
+  const user = await User.find({ username }) // username has been register
   if (user.length) {
     ctx.body = {
       code: -1,
@@ -53,14 +50,12 @@ router.post('/signup', async ctx => {
     }
     return
   }
-  // write into database
-  const nuser = await User.create({
+  const nuser = await User.create({ // write into database
     username,
     password,
     email
   })
-  // register success
-  if (nuser) {
+  if (nuser) { // register success
     const res = await axios.post('/users/signin', {
       username,
       password
@@ -86,9 +81,7 @@ router.post('/signup', async ctx => {
 })
 
 router.post('/signin', async(ctx, next) => {
-  // (register.vue pass parameter)
-  // authenticate(): invoked passport-local Strategy
-  return Passport.authenticate('local', function(err, user, info, status) {
+  return Passport.authenticate('local', function(err, user, info, status) { // authenticate(): invoked passport-local Strategy (register.vue pass parameter)
     if (err) {
       ctx.body = {
         code: -1,
@@ -121,8 +114,7 @@ router.post('/signin', async(ctx, next) => {
 // })
 
 router.post('/verify', async(ctx, next) => {
-  // register.vue pass parameter
-  const { username } = ctx.request.body
+  const { username } = ctx.request.body // register.vue pass parameter
   const saveExpire = await Store.hget(`nodemail:${username}`, 'expire')
   if (saveExpire && new Date().getTime() - saveExpire < 0) {
     ctx.body = {
@@ -131,38 +123,32 @@ router.post('/verify', async(ctx, next) => {
     }
     return false
   }
-  // send email config
-  const transporter = nodeMailer.createTransport({
+  const transporter = nodeMailer.createTransport({ // send email config
     host: Email.smtp.host,
     port: 587,
-    // false: 监听其他端口
-    secure: false,
+    secure: false, // false: 监听其他端口
     auth: {
       user: Email.smtp.user,
       pass: Email.smtp.pass
     }
   })
-  // What information is sent and received
-  const ko = {
+  const ko = { // What information is sent and received
     code: Email.smtp.code(),
     expire: Email.smtp.expire(),
     email: ctx.request.body.email,
     user: ctx.request.body.username
   }
-  // email msg
-  const mailOptions = {
+  const mailOptions = { // email msg
     from: `认证邮件<${Email.smtp.user}>`,
     to: ko.email,
     subject: '《慕课网高仿美团网全栈实战》注册码',
     html: `您在《慕课网高仿美团网全栈实战》课程中注册，您的邀请码是${ko.code}`
   }
-  // send email
-  await transporter.sendMail(mailOptions, (err, info) => {
+  await transporter.sendMail(mailOptions, (err, info) => { // send email
     if (err) {
       return console.log(err)
     } else {
-      // redis save user info
-      Store.hmset(
+      Store.hmset( // redis save user info
         `nodemail:${ko.user}`,
         'code',
         ko.code,
@@ -181,8 +167,7 @@ router.post('/verify', async(ctx, next) => {
 
 router.get('/exit', async(ctx, next) => {
   await ctx.logout()
-  // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
-  if (!ctx.isAuthenticated()) {
+  if (!ctx.isAuthenticated()) { // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
     ctx.body = {
       code: 0
     }
@@ -194,10 +179,8 @@ router.get('/exit', async(ctx, next) => {
 })
 
 router.get('/getUser', async ctx => {
-  // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
-  if (ctx.isAuthenticated()) {
-    // ctx.session.passport.user: 拿到 passport-koa 用户名和密码
-    const { username, email } = ctx.session.passport.user
+  if (ctx.isAuthenticated()) { // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
+    const { username, email } = ctx.session.passport.user // ctx.session.passport.user: 拿到 passport-koa 用户名和密码
     ctx.body = {
       user: username,
       email

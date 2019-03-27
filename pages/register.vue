@@ -90,8 +90,7 @@
 </template>
 
 <script>
-// 加密
-import CryptoJS from 'crypto-js'
+import CryptoJS from 'crypto-js' // 加密
 export default {
   layout: 'blank',
   data() {
@@ -136,8 +135,7 @@ export default {
             trigger: 'blur'
           },
           {
-            // 自定义规则
-            validator: (rule, value, callback) => {
+            validator: (rule, value, callback) => { // 自定义规则
               if (value === '') {
                 callback(new Error('请再次输入密码'))
               } else if (value !== this.ruleForm.pwd) {
@@ -160,29 +158,24 @@ export default {
       if (this.timerid) {
         return false
       }
-      // 验证用户名是否通过校验 (element-ui 方法), 如果有值表示没有通过
-      this.$refs['ruleForm'].validateField('name', valid => {
+      this.$refs['ruleForm'].validateField('name', valid => { // 验证用户名是否通过校验 (element-ui 方法), 如果有值表示没有通过
         namePass = valid
       })
       if (namePass) {
         return false
       }
-      // 检测邮箱是否通过校验 (element-ui 方法), 如果有值表示没有通过
-      this.$refs['ruleForm'].validateField('email', valid => {
+      this.$refs['ruleForm'].validateField('email', valid => { // 检测邮箱是否通过校验 (element-ui 方法), 如果有值表示没有通过
         emailPass = valid
       })
       this.statusMsg = ''
-      // 如果用户名, 邮箱都通过 (有值则表示没通过)
-      if (!namePass && !emailPass) {
+      if (!namePass && !emailPass) { // 如果用户名, 邮箱都通过 (有值则表示没通过)
         that.$axios
           .post('/users/verify', {
-            // encodeURIComponent: 对中文进行编码
-            username: encodeURIComponent(that.ruleForm.name),
+            username: encodeURIComponent(that.ruleForm.name), // encodeURIComponent: 对中文进行编码
             email: that.ruleForm.email
           })
           .then(({ status, data }) => {
-            // 发送成功后, 验证码有效倒计时
-            if (status === 200 && data && data.code === 0) {
+            if (status === 200 && data && data.code === 0) { // 发送成功后, 验证码有效倒计时
               let count = 60
               that.statusMsg = `验证码已发送，剩余${count--}秒`
               that.timerid = setInterval(() => {
@@ -199,16 +192,12 @@ export default {
       }
     },
     register() {
-      // 验证表单
-      this.$refs['ruleForm'].validate(valid => {
-        // 验证全部通过
-        if (valid) {
+      this.$refs['ruleForm'].validate(valid => { // 验证表单
+        if (valid) { // 验证全部通过
           this.$axios
             .post('/users/signup', {
-              // encodeURIComponent: 对中文进行编码
-              username: window.encodeURIComponent(this.ruleForm.name),
-              // CryptoJS.MD5 加密
-              password: CryptoJS.MD5(this.ruleForm.pwd).toString(),
+              username: window.encodeURIComponent(this.ruleForm.name), // encodeURIComponent: 对中文进行编码
+              password: CryptoJS.MD5(this.ruleForm.pwd).toString(), // CryptoJS.MD5 加密
               email: this.ruleForm.email,
               code: this.ruleForm.code
             })

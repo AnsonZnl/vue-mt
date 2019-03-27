@@ -1,18 +1,10 @@
 import Koa from 'koa'
 import mongoose from 'mongoose'
-// Elegant Console Logger for Node.js and Browser
-import consola from 'consola'
-// A body parser for koa, base on co-body. support json, form and text type body.
-// 解析 body 的中间件，在 koa 中 this.body 就能直接获取到数据。post 参数获取
-import bodyParser from 'koa-bodyparser'
-// Generic session middleware for koa,
-// easy use with custom stores such as redis or mongo,
-// supports Delay session getter.
-import session from 'koa-generic-session'
-// Redis storage for koa session middleware/cache.
-import Redis from 'koa-redis'
-// JSON pretty-printed response middleware.
-import json from 'koa-json'
+import consola from 'consola' // Elegant Console Logger for Node.js and Browser
+import bodyParser from 'koa-bodyparser' // 解析 body 的中间件，在 koa 中 this.body 就能直接获取到数据。post 参数获取
+import session from 'koa-generic-session' // supports Delay session getter
+import Redis from 'koa-redis' // Redis storage for koa session middleware/cache.
+import json from 'koa-json' // JSON pretty-printed response middleware.
 
 import dbConfig from './dbs/config'
 import passport from './interface/utils/passport'
@@ -41,17 +33,14 @@ app.use(
 // 开启 koa-passport 对 session 的支持
 app.use(passport.initialize())
 app.use(passport.session())
-
-// post handle
-app.use(
+app.use( // post handle
   bodyParser({
     extendTypes: ['json', 'form', 'text']
   })
 )
 app.use(json())
 
-// 连接数据库
-mongoose.connect(
+mongoose.connect( // 连接数据库
   dbConfig.dbs,
   {
     useNewUrlParser: true
@@ -63,10 +52,8 @@ const config = require('../nuxt.config.js')
 config.dev = !(app.env === 'production')
 
 async function start() {
-  // Instantiate nuxt.js
-  const nuxt = new Nuxt(config)
-  // Build in development
-  if (config.dev) {
+  const nuxt = new Nuxt(config) // Instantiate nuxt.js
+  if (config.dev) { // Build in development
     const builder = new Builder(nuxt)
     await builder.build()
   }
