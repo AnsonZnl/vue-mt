@@ -108,7 +108,7 @@
           </li>
           <li>
             <i class="overdue"/>
-            <p class="txt">过期退</p>
+            <p class="txt">过期退 {{ isSearchList }}</p>
           </li>
         </ul>
       </el-col>
@@ -124,7 +124,8 @@ export default {
       search: '',
       isFocus: false,
       hotPlace: [],
-      searchList: []
+      searchList: [],
+      inputValue: false
     }
   },
   computed: {
@@ -132,7 +133,11 @@ export default {
       return this.isFocus && !this.search
     },
     isSearchList() {
-      return this.isFocus && this.search
+      if (this.isFocus && this.inputValue) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {
@@ -142,6 +147,7 @@ export default {
     blur() {
       setTimeout(() => {
         this.isFocus = false
+        this.inputValue = false
       }, 200)
     },
     input: _.debounce(async function() { // _.debounce 延时函数
@@ -154,6 +160,11 @@ export default {
         }
       })
       this.searchList = top.slice(0, 10)
+      if (this.search === '') {
+        this.inputValue = false
+      } else {
+        this.inputValue = true
+      }
     }, 300)
   }
 }

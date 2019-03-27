@@ -10,14 +10,12 @@ const router = new Router({
 })
 // const sign = Config.sign
 
-// http://localhost:3000/search/top?input=十指恋时尚美甲&city=广州
 // 搜索商家或地点
-router.get('/top', async(ctx) => {
-  /* 操作本地数据库 */
+// [postman](http://localhost:3000/search/top?input=十指恋时尚美甲&city=广州)
+router.get('/top', async(ctx) => { // 操作本地数据库
   try {
     const top = await Poi.find({
-      // ctx.query.input & ctx.query.city: searchbar.vue pass parameter
-      'name': new RegExp(ctx.query.input),
+      'name': new RegExp(ctx.query.input), // ctx.query.input & ctx.query.city: searchbar.vue pass parameter
       city: ctx.query.city
     })
     ctx.body = {
@@ -35,7 +33,7 @@ router.get('/top', async(ctx) => {
       top: []
     }
   }
-  /* 线上服务 */
+  // 线上服务
   // const { status, data: { top }} = await axios.get(`${Config.requestUrl}/search/top`, {
   //   params: {
   //     input: ctx.query.input,
@@ -48,13 +46,9 @@ router.get('/top', async(ctx) => {
   // }
 })
 
-// http://localhost:3000/search/hotPlace?city=广州&type=景点
-router.get('/hotPlace', async(ctx) => {
-  /*
-  操作本地数据库
-  ctx.query.city: store/index.js pass parameter
-   */
-  const city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
+// [postman](http://localhost:3000/search/hotPlace?city=广州&type=景点)
+router.get('/hotPlace', async(ctx) => { // 操作本地数据库
+  const city = ctx.store ? ctx.store.geo.position.city : ctx.query.city // ctx.query.city: store/index.js pass parameter
   try {
     const result = await Poi.find({
       city,
@@ -75,7 +69,7 @@ router.get('/hotPlace', async(ctx) => {
       result: []
     }
   }
-  /* 线上服务 */
+  // 线上服务
   // const city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
   // const { status, data: { result }} = await axios.get(`${Config.requestUrl}/search/hotPlace`, {
   //   params: {
@@ -89,9 +83,8 @@ router.get('/hotPlace', async(ctx) => {
 })
 
 // "有格调"界面
-// http://localhost:3000/search/resultsByKeywords
-router.get('/resultsByKeywords', async(ctx) => {
-  /* 操作本地数据库 */
+// [postman](http://localhost:3000/search/resultsByKeywords)
+router.get('/resultsByKeywords', async(ctx) => { // 操作本地数据库
   try {
     const result = await ResultsByKeywords.findOne()
     ctx.body = {
@@ -104,7 +97,7 @@ router.get('/resultsByKeywords', async(ctx) => {
       pois: []
     }
   }
-  /* 线上服务 */
+  // 线上服务
   // const { city, keyword } = ctx.query
   // const { status, data: { count, pois }} = await axios.get(`${Config.requestUrl}/search/resultsByKeywords`, {
   //   params: {
@@ -119,18 +112,16 @@ router.get('/resultsByKeywords', async(ctx) => {
   // }
 })
 
-router.get('/products', async(ctx) => {
-  /* 操作本地数据库 */
+router.get('/products', async(ctx) => { // 操作本地数据库
   // const keyword = ctx.query.keyword || '旅游'
   const city = ctx.query.city || '北京'
   try {
     const result = await Products.findOne({ city })
-    // ctx.isAuthenticated() 是否已经登录?
     ctx.body = {
       keyword: result.keyword,
       product: result.product,
       more: ctx.isAuthenticated() ? result.more : [],
-      login: ctx.isAuthenticated(),
+      login: ctx.isAuthenticated(), // ctx.isAuthenticated() 是否已经登录?
       type: result.type
     }
   } catch (e) {
@@ -142,7 +133,7 @@ router.get('/products', async(ctx) => {
       type: ''
     }
   }
-  /* 线上服务 */
+  // 线上服务
   // const keyword = ctx.query.keyword || '旅游'
   // const city = ctx.query.city || '北京'
   // const { status, data: { product, more }} = await axios.get(`${Config.requestUrl}/search/products`, {

@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
+
 import geo from './modules/geo'
 import home from './modules/home'
 import search from './modules/search'
@@ -14,8 +15,7 @@ const store = () =>
       search
     },
     actions: {
-      // nuxtServerInit 将服务端的一些数据传到客户端
-      async nuxtServerInit({ commit }, { req, app }) {
+      async nuxtServerInit({ commit }, { req, app }) { // nuxtServerInit 将服务端的一些数据传到客户端
         {
           const {
             status,

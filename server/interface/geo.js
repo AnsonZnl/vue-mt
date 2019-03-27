@@ -11,15 +11,14 @@ const router = new Router({
 })
 // const sign = Config.sign
 
-// http://localhost:3000/geo/getPosition
+// [postman](http://localhost:3000/geo/getPosition)
 router.get('/getPosition', async ctx => {
-  /* 操作本地数据库 */
-  const result = await Positon.findOne()
+  const result = await Positon.findOne() // 操作本地数据库
   ctx.body = {
     province: result.province,
     city: result.city
   }
-  /* 线上服务 */
+  // 线上服务
   // const {
   //   status,
   //   data: { province, city }
@@ -37,14 +36,13 @@ router.get('/getPosition', async ctx => {
   // }
 })
 
-// http://localhost:3000/geo/menu
+// [postman](http://localhost:3000/geo/menu)
 router.get('/menu', async ctx => {
-  /* 操作本地数据库 */
-  const result = await Menu.findOne()
+  const result = await Menu.findOne() // 操作本地数据库
   ctx.body = {
     menu: result.menu
   }
-  /* 线上服务 */
+  // 线上服务
   // const {
   //   status,
   //   data: { menu }
@@ -60,10 +58,9 @@ router.get('/menu', async ctx => {
   // }
 })
 
-// http://localhost:3000/geo/province
+// [postman](http://localhost:3000/geo/province)
 router.get('/province', async ctx => {
-  /* 操作本地数据库 */
-  const result = await Province.find()
+  const result = await Province.find() // 操作本地数据库
   ctx.body = {
     province: result.map(item => {
       return {
@@ -72,7 +69,7 @@ router.get('/province', async ctx => {
       }
     })
   }
-  /* 线上服务 */
+  // 线上服务
   // const {
   //   status,
   //   data: { province }
@@ -83,17 +80,15 @@ router.get('/province', async ctx => {
 })
 
 // http://localhost:3000/geo/province/110000
-// 获取对应省份城市
-router.get('/province/:id', async ctx => {
-  /* 操作本地数据库 */
-  const result = await City.findOne({ id: ctx.params.id })
+router.get('/province/:id', async ctx => { // 获取对应省份城市
+  const result = await City.findOne({ id: ctx.params.id }) // 操作本地数据库
   ctx.body = {
     code: 0,
     city: result.value.map(item => {
       return { province: item.province, id: item.id, name: item.name }
     })
   }
-  /* 线上服务 */
+  // 线上服务
   // const {
   //   status,
   //   data: { city }
@@ -111,10 +106,9 @@ router.get('/province/:id', async ctx => {
   // }
 })
 
-// http://localhost:3000/geo/city
+// [postman](http://localhost:3000/geo/city)
 router.get('/city', async ctx => {
-  /* 操作本地数据库 */
-  const result = await City.find()
+  const result = await City.find() // 操作本地数据库
   ctx.body = {
     city: result.map(item => {
       return {
@@ -122,7 +116,7 @@ router.get('/city', async ctx => {
       }
     })
   }
-  /* 线上服务 */
+  // 线上服务
   // const {
   //   status,
   //   data: { city }
@@ -138,10 +132,9 @@ router.get('/city', async ctx => {
   // }
 })
 
-// http://localhost:3000/geo/city
+// [postman](http://localhost:3000/geo/city)
 router.get('/hotCity', async ctx => {
-  /* 操作本地数据库 bug! 没有返回完全的城市名 */
-  const result = await City.find()
+  const result = await City.find() // 操作本地数据库 bug! 没有返回完全的城市名
   ctx.body = {
     city: result.map(item => {
       const value = item.value
@@ -151,7 +144,7 @@ router.get('/hotCity', async ctx => {
       }
     })
   }
-  /* 线上服务 */
+  // 线上服务
   // const {
   //   status,
   //   data: { hots }
