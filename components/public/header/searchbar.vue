@@ -108,7 +108,7 @@
           </li>
           <li>
             <i class="overdue"/>
-            <p class="txt">过期退 {{ isSearchList }}</p>
+            <p class="txt">过期退</p>
           </li>
         </ul>
       </el-col>
@@ -133,11 +133,7 @@ export default {
       return this.isFocus && !this.search
     },
     isSearchList() {
-      if (this.isFocus && this.inputValue) {
-        return true
-      } else {
-        return false
-      }
+      return this.isFocus && this.inputValue
     }
   },
   methods: {

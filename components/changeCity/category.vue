@@ -46,17 +46,13 @@ export default {
       let wantArray
       for (const value of city) {
         wantArray = [...value.value]
-        // console.log(wantArray, 1)
         for (const value of wantArray) {
-          // p: 城市首字母小写拼音
           p = pyjs
             .getFullChars(value.name)
             .toLocaleLowerCase()
-            .slice(0, 1)
-          // 首字母小写拼音对应 ascii
-          c = p.charCodeAt(0)
-          // a-z
-          if (c > 96 && c < 123) {
+            .slice(0, 1) // p: 城市首字母小写拼音
+          c = p.charCodeAt(0) // 首字母小写拼音对应 ascii
+          if (c > 96 && c < 123) { // a-z
             if (!d[p]) {
               d[p] = []
             }
@@ -64,16 +60,13 @@ export default {
           }
         }
       }
-      // console.log(d, 4)
-      // 获取对应的键值对
-      for (const [k, v] of Object.entries(d)) {
+      for (const [k, v] of Object.entries(d)) { // 获取对应的键值对
         blocks.push({
           title: k.toUpperCase(),
           city: v
         })
       }
-      // 排序
-      blocks.sort((a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0))
+      blocks.sort((a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0)) // 排序
       this.block = blocks
     }
   },
@@ -82,7 +75,6 @@ export default {
       setPosition: 'geo/setPosition'
     }),
     handleSelect(cityName) {
-      // console.log(cityName)
       this.$store.commit('geo/setCity', cityName)
     }
   }

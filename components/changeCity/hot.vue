@@ -25,9 +25,7 @@ export default {
       let wantArray
       for (const value of city) {
         wantArray = [...value.value]
-        // console.log(wantArray, 1)
         for (const value of wantArray) {
-          // console.log(value, 2)
           if (value.hot === true) {
             this.list.push(value)
           }
@@ -40,7 +38,6 @@ export default {
       setPosition: 'geo/setPosition'
     }),
     handleSelect(cityName) {
-      // console.log(cityName)
       this.$store.commit('geo/setCity', cityName)
     }
   }
