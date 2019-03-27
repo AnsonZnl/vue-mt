@@ -5,27 +5,32 @@
 1. 数据库采用本地 mongodb 数据库，如果需要线上数据库接口，可以修改 server/interface 里面各个接口注释代码
 2. 解决了作者部分没完善的功能
 
-## 启动方式
-
-```console
-<!-- node: 10.0.0 -->
-sudo mongod
-<!-- open other iTerm -->
-mongo
-<!-- open other iTerm -->
-redis-server
-<!-- open other iTerm -->
-redis-cli
-<!-- open other iTerm -->
-<!-- 进入项目根目录 -->
-npm run dev
-<!-- browser open -->
-localhost:3000
-```
-
 ## qq 授权码
 
 vjalqgcbjqdhbbfb
+
+## taobao, 如果想下载 express 的话，只需要使用–registry 参数指定镜像服务器地址
+
+> [node官网](https://nodejs.org/en/)
+
+```console
+npm install express --registry=http://registry.npm.taobao.org
+```
+
+> 可以使用如下命令进行永久设置
+
+```console
+npm config set registry http://registry.npm.taobao.org
+```
+
+## 管理 node 版本
+
+```console
+npm i nvm
+nvm ls
+nvm install 10.0.0
+nvm use 10.0.0
+```
 
 ## 初始化项目
 
@@ -39,11 +44,30 @@ element-ui
 Universal
 yes
 yes
-ganyihuan
+GanEhank
 npm
 nvm use 10.0.0
 <!-- 安装插件 -->
 cnpm i scss-loader sass-loader passport-local nodemailer node-sass mongoose koa-router koa-redis koa-passport koa-json koa-generic-session koa-bodyparser babel-preset-es2015 babel-cli axios @nuxtjs/axios crypto-js -S
+brew install mongodb
+brew install redis
+```
+
+## 启动
+
+```console
+sudo mongod
+<!-- open other iTerm -->
+mongo
+<!-- open other iTerm -->
+redis-server
+<!-- open other iTerm -->
+redis-cli
+<!-- open other iTerm -->
+<!-- 进入项目根目录 -->
+npm run dev
+<!-- browser open -->
+localhost:3000
 ```
 
 ## 导入数据到 mongodb
