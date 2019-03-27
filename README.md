@@ -9,29 +9,6 @@
 
 vjalqgcbjqdhbbfb
 
-## taobao, 如果想下载 express 的话，只需要使用–registry 参数指定镜像服务器地址
-
-> [node官网](https://nodejs.org/en/)
-
-```console
-npm install express --registry=http://registry.npm.taobao.org
-```
-
-> 可以使用如下命令进行永久设置
-
-```console
-npm config set registry http://registry.npm.taobao.org
-```
-
-## 管理 node 版本
-
-```console
-npm i nvm
-nvm ls
-nvm install 10.0.0
-nvm use 10.0.0
-```
-
 ## 初始化项目
 
 ```console
@@ -117,3 +94,26 @@ http://localhost:3000/search/resultsByKeywords?city=广州&keyword=广州流溪�
 ![风景界面](https://i.loli.net/2019/01/10/5c37658f6a373.png)
 ![订单界面](https://i.loli.net/2019/01/10/5c3765d79b16b.png)
 ![总订单](https://i.loli.net/2019/01/11/5c376ca8b25ef.png)
+
+## taobao, 如果想下载 express 的话，只需要使用–registry 参数指定镜像服务器地址
+
+> [node官网](https://nodejs.org/en/)
+
+```console
+npm install express --registry=http://registry.npm.taobao.org
+```
+
+> 可以使用如下命令进行永久设置
+
+```console
+npm config set registry http://registry.npm.taobao.org
+```
+
+## 管理 node 版本
+
+```console
+npm i nvm
+nvm ls
+nvm install 10.0.0
+nvm use 10.0.0
+```
