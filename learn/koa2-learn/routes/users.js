@@ -1,34 +1,29 @@
 const router = require('koa-router')()
 const Person = require('../dbs/models/person')
 
-/* redis */
+// redis
 const Redis = require('koa-redis')
 const Store = new Redis().client
 
-/* 路由前缀 */
-router.prefix('/users')
+router.prefix('/users') // 路由前缀
 
 router.get('/', function(ctx, next) {
   ctx.body = 'this is a users response!'
 })
 
-// 定位到 http://localhost:3000/users/bar 路由
-router.get('/bar', function(ctx, next) {
-  // 返回接口结果
-  ctx.body = 'this is a users/bar response'
+router.get('/bar', function(ctx, next) { // 定位到 http://localhost:3000/users/bar 路由
+  ctx.body = 'this is a users/bar response' // 返回接口结果
 })
 
-/* 增加数据 */
+// 增加数据
 router.post('/addPerson', async(ctx, next) => {
   const person = new Person({
-    // ctx.request 是 ctx 经过封装的请求对象
-    name: ctx.request.body.name,
+    name: ctx.request.body.name, // ctx.request 是 ctx 经过封装的请求对象
     age: ctx.request.body.age
   })
   let code
   try {
-    /* save: 增加数据 */
-    await person.save()
+    await person.save() // save: 增加数据
     code = 0
   } catch (error) {
     code = -1
@@ -38,14 +33,12 @@ router.post('/addPerson', async(ctx, next) => {
   }
 })
 
-/* 查询数据 */
+// 查询数据
 router.post('/getPerson', async(ctx, next) => {
-  /* findOne: 找出一条 */
-  const result = await Person.findOne({
+  const result = await Person.findOne({ // findOne: 找出一条
     name: ctx.request.body.name
   })
-  /* find: 找出所有 */
-  const results = await Person.find({
+  const results = await Person.find({ // find: 找出所有
     name: ctx.request.body.name
   })
   ctx.body = {
@@ -55,13 +48,11 @@ router.post('/getPerson', async(ctx, next) => {
   }
 })
 
-/* 修改数据 */
+// 修改数据
 router.post('/updatePerson', async function(ctx) {
-  /* where: 定位数据 */
-  /* update: 修改数据 */
-  const result = await Person.where({
+  const result = await Person.where({ // where: 定位数据
     name: ctx.request.body.name
-  }).update({
+  }).update({ // update: 修改数据
     age: ctx.request.body.age
   })
   ctx.body = {
@@ -70,7 +61,7 @@ router.post('/updatePerson', async function(ctx) {
   }
 })
 
-/* 删除数据 */
+// 删除数据
 router.post('/removePerson', async function(ctx) {
   const result = await Person.where({
     name: ctx.request.body.name
@@ -81,11 +72,9 @@ router.post('/removePerson', async function(ctx) {
   }
 })
 
-// hget fix name
-/* 不经过 session 直接读取 redis */
+// hget fix name 不经过 session 直接读取 redis
 router.get('/fix', async(ctx, next) => {
-  /* key, k-v */
-  const st = await Store.hset('fix', 'name', Math.random())
+  const st = await Store.hset('fix', 'name', Math.random()) // key, k-v
   ctx.body = {
     code: 0,
     st

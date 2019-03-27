@@ -2,7 +2,7 @@ const router = require('koa-router')()
 
 router.get('/', async(ctx, next) => {
   global.console.log('index2')
-  ctx.cookies.set('pvid', Math.random())
+  ctx.cookies.set('pvid', Math.random()) // 写入 cookies
   await ctx.render('index', {
     title: 'Hello Koa 2!'
   })
@@ -15,14 +15,11 @@ router.get('/string', async(ctx, next) => {
 router.get('/json', async(ctx, next) => {
   ctx.body = {
     title: 'koa2 json',
-    cookie: ctx.cookies.get('pvid')
+    cookie: ctx.cookies.get('pvid') // 读取 cookies
   }
 })
 
-/*
-await 后面跟着 promise 对象(如果不是则转化为 Promise),
-await 等待结果才执行下面代码, 能使代码依次执行
-*/
+// await 后面跟着 promise 对象(如果不是则转化为 Promise), await 等待结果(resolve)才执行下面代码, 能使代码依次执行
 router.get('/testAsync', async ctx => {
   global.console.log('start', new Date().getTime())
   const a = await new Promise((resolve, reject) => {
@@ -32,8 +29,7 @@ router.get('/testAsync', async ctx => {
     }, 1000)
   })
   const b = await 123
-  // 返回接口结果
-  ctx.body = {
+  ctx.body = { // 返回接口结果
     a,
     b
   }

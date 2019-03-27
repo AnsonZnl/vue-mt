@@ -6,40 +6,40 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-/* Redis */
+// Redis
 const Redis = require('koa-redis')
-/* session */
+// session
 const session = require('koa-generic-session')
 
-/* route */
+// route
 const index = require('./routes/index')
 const users = require('./routes/users')
 
-/* middlewares */
+// middlewares
 const pv = require('./middleware/koa-pv')
 const m1 = require('./middleware/m1')
 const m2 = require('./middleware/m2')
 
-/* mongoose */
+// mongoose
 const mongoose = require('mongoose')
 const dbConfig = require('./dbs/config')
 
-/* error handler */
+// error handler
 onerror(app)
 
-/* redis 连接 */
+// redis 连接
 app.keys = ['keys', 'keyskeys']
 app.use(
   session({
-    /* Cookies: mt.sig */
+    // Cookies: mt.sig
     key: 'mt',
-    /* session 储存的 key 值 */
+    // session 储存的 key 值
     prefix: 'mtpr',
     store: new Redis()
   })
 )
 
-/* middlewares */
+// middlewares
 app.use(pv())
 app.use(m1())
 app.use(m2())
@@ -61,7 +61,7 @@ app.use(
   })
 )
 
-/* logger */
+// logger
 app.use(async(ctx, next) => {
   const start = new Date()
   await next()
@@ -69,11 +69,11 @@ app.use(async(ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-/* routes use */
+// routes use
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 
-/* 连接数据库 */
+// 连接数据库
 mongoose.connect(
   dbConfig.dbs,
   {
@@ -81,7 +81,7 @@ mongoose.connect(
   }
 )
 
-/* error-handling */
+// error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 })
