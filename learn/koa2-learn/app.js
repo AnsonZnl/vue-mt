@@ -31,10 +31,8 @@ onerror(app)
 app.keys = ['keys', 'keyskeys']
 app.use(
   session({
-    // Cookies: mt.sig
-    key: 'mt',
-    // session 储存的 key 值
-    prefix: 'mtpr',
+    key: 'mt', // Cookies: mt.sig
+    prefix: 'mtpr', // session 储存的 key 值
     store: new Redis()
   })
 )
