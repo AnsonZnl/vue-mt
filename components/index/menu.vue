@@ -50,13 +50,8 @@ export default {
     }
   },
   computed: {
-    /**
-     * 当前的分类内容, 选中左侧分类某一项后，出现对应的右侧栏数据(过滤数据)
-     * @return: 过滤数据
-     */
-    curdetail() {
-      /* 打印结果是数组，要取内容 */
-      // console.log(this.menu.filter((item)=>{
+    curdetail() { // 当前的分类内容, 选中左侧分类某一项后，出现对应的右侧栏数据(过滤数据) @return: 过滤数据
+      // console.log(this.menu.filter((item)=>{ //  打印结果是数组，要取内容
       //   return item.type === this.kind
       // })[0])
       return this.$store.state.home.menu.filter(item => {
@@ -66,9 +61,7 @@ export default {
   },
   methods: {
     navEnter(e) {
-      /* e.target: 当前元素 */
-      /* querySelector: 获取 i 标签 */
-      this.kind = e.target.querySelector('i').className
+      this.kind = e.target.querySelector('i').className // e.target: 当前元素, querySelector: 获取 i 标签
     },
     navLeave() {
       this._timer = setTimeout(() => {

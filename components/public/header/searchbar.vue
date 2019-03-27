@@ -144,13 +144,11 @@ export default {
         this.isFocus = false
       }, 200)
     },
-    // _.debounce 延时函数
-    input: _.debounce(async function() {
+    input: _.debounce(async function() { // _.debounce 延时函数
       this.searchList = []
       const city = this.$store.state.geo.position.city.replace('市', '')
       const { data: { top }} = await this.$axios.get('/search/top', {
-        params: {
-          // pass to search.js parameter
+        params: { // pass to search.js parameter
           input: this.search,
           city
         }
