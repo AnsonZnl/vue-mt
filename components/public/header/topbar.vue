@@ -1,10 +1,10 @@
 <template>
-  <!-- gutter 栅格间隔 -->
+  <!-- gutter: Grid spacing -->
   <el-row
     :gutter="0"
     class="m-header"
   >
-    <!-- span 栅格占据的列数 (共24) -->
+    <!-- span: The number of columns occupied by the grid (all 24) -->
     <el-col :span="5">
       <geo/>
     </el-col>

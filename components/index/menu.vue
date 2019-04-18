@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      kind: '' // 记录鼠标 hover 的状态
+      kind: '' // Recording mouse hover status
       // menu: [
       //   {
       //     type: 'food',
@@ -50,8 +50,8 @@ export default {
     }
   },
   computed: {
-    curdetail() { // 当前的分类内容, 选中左侧分类某一项后，出现对应的右侧栏数据(过滤数据) @return: 过滤数据
-      // console.log(this.menu.filter((item)=>{ //  打印结果是数组，要取内容
+    curdetail() { // Current classification, After selecting an item on the left side the corresponding right side column data appears.(filter data) @return: filter data
+      // console.log(this.menu.filter((item)=>{ //  The printed result is an array, to get the content
       //   return item.type === this.kind
       // })[0])
       return this.$store.state.home.menu.filter(item => {
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     navEnter(e) {
-      this.kind = e.target.querySelector('i').className // e.target: 当前元素, querySelector: 获取 i 标签
+      this.kind = e.target.querySelector('i').className // e.target: Current element, querySelector: get <i></i>
     },
     navLeave() {
       this._timer = setTimeout(() => {

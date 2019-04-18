@@ -39,7 +39,6 @@
               <a :href="'/products?keyword=' + encodeURIComponent(item.name)">{{ item.name }}</a>
             </dd>
           </dl>
-          <!-- 搜索列表 -->
           <dl
             v-if="isSearchList"
             class="searchList"
@@ -52,7 +51,6 @@
             </dd>
           </dl>
         </div>
-        <!-- 十指恋时尚美甲 -->
         <div class="suggset">
           <a
             v-for="(item, index) in $store.state.search.hotPlace.slice(0, 4)"
@@ -146,7 +144,7 @@ export default {
         this.inputValue = false
       }, 200)
     },
-    input: _.debounce(async function() { // _.debounce 延时函数
+    input: _.debounce(async function() { // _.debounce: Delay function
       this.searchList = []
       const city = this.$store.state.geo.position.city.replace('市', '')
       const { data: { top }} = await this.$axios.get('/search/top', {
