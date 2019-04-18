@@ -18,7 +18,7 @@ router.get('/bar', function(ctx, next) { // Targeting http://localhost:3000/user
 // Increase data
 router.post('/addPerson', async(ctx, next) => {
   const person = new Person({
-    name: ctx.request.body.name, // ctx.request is ctx Encapsulated request object
+    name: ctx.request.body.name, // ctx.request is ctx encapsulate request object
     age: ctx.request.body.age
   })
   let code
@@ -50,11 +50,13 @@ router.post('/getPerson', async(ctx, next) => {
 
 // change the data
 router.post('/updatePerson', async function(ctx) {
-  const result = await Person.where({ // where: Positioning data
-    name: ctx.request.body.name
-  }).update({ // update: change the data
-    age: ctx.request.body.age
-  })
+  const result = await Person
+    .where({ // where: Positioning data
+      name: ctx.request.body.name
+    })
+    .update({ // update: change the data
+      age: ctx.request.body.age
+    })
   ctx.body = {
     code: 0,
     result
@@ -63,9 +65,11 @@ router.post('/updatePerson', async function(ctx) {
 
 // delete data
 router.post('/removePerson', async function(ctx) {
-  const result = await Person.where({
-    name: ctx.request.body.name
-  }).remove()
+  const result = await Person
+    .where({
+      name: ctx.request.body.name
+    })
+    .remove()
   ctx.body = {
     code: 0,
     result

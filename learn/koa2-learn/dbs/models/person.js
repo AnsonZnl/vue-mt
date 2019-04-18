@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const personSchema = new mongoose.Schema({ // 建表
+const personSchema = new mongoose.Schema({ // Building a table
   name: String,
   age: Number
 })
 
-module.exports = mongoose.model('Person', personSchema) // 建模型
+module.exports = mongoose.model('Person', personSchema) // Model
