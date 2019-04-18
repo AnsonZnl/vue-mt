@@ -1,11 +1,11 @@
 function pv(ctx) {
-  ctx.session.count++ // redis, session: 用户访问多少次
-  global.console.log('pv', ctx.path) // ctx.path 路径
+  ctx.session.count++ // redis, session: How many times does the user visit?
+  global.console.log('pv', ctx.path) // ctx.path: path
 }
 
 module.exports = function() {
-  return async(ctx, next) => { // ctx: 上下文
+  return async(ctx, next) => { // ctx: Context
     pv(ctx)
-    await next() // next(): 下一个中间件
+    await next() // next(): Next middleware
   }
 }

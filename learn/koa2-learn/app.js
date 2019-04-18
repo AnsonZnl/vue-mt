@@ -27,12 +27,12 @@ const dbConfig = require('./dbs/config')
 // error handler
 onerror(app)
 
-// redis 连接
+// redis connection
 app.keys = ['keys', 'keyskeys']
 app.use(
   session({
     key: 'mt', // Cookies: mt.sig
-    prefix: 'mtpr', // session 储存的 key 值
+    prefix: 'mtpr', // session Stored key value
     store: new Redis()
   })
 )
@@ -71,7 +71,7 @@ app.use(async(ctx, next) => {
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 
-// 连接数据库
+// Connect to the database
 mongoose.connect(
   dbConfig.dbs,
   {

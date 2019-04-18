@@ -1,4 +1,4 @@
-# imooc-mt
+# vue-mt
 
 ## 项目说明
 
