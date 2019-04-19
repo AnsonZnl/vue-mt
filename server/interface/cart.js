@@ -1,26 +1,21 @@
 ﻿import Router from 'koa-router'
 import Cart from '../dbs/models/cart'
-// 签名, MD5 加密
-import md5 from 'crypto-js/md5'
+import md5 from 'crypto-js/md5' // encryption
 
 const router = new Router({
   prefix: '/cart'
 })
 
-// 创建购物车
 router.post('/create', async ctx => {
-  // isAuthenticated 是否登录
-  if (!ctx.isAuthenticated()) {
+  if (!ctx.isAuthenticated()) { // isAuthenticated Whether to log in
     ctx.body = {
       code: -1,
       msg: 'please login'
     }
   } else {
-    // Date: 为了时区一样
-    const time = Date()
+    const time = Date() // Date: For the same time zone
     const cartNo = md5(Math.random() * 1000 + time).toString()
-    // ctx.request.body: post 方式获取数据, 传来的数据
-    const { params: { id, detail }} = ctx.request.body
+    const { params: { id, detail }} = ctx.request.body // ctx.request.body: post Way to get data
     const cart = new Cart({
       id,
       cartNo,
@@ -28,8 +23,7 @@ router.post('/create', async ctx => {
       user: ctx.session.passport.user,
       detail
     })
-    // 存储到数据库里面
-    const result = await cart.save()
+    const result = await cart.save() // Stored in the database
     if (result) {
       ctx.body = {
         code: 0,
@@ -45,7 +39,6 @@ router.post('/create', async ctx => {
   }
 })
 
-// 获取购物车
 router.post('/getCart', async ctx => {
   const { id } = ctx.request.body
   try {
