@@ -43,11 +43,11 @@ export default {
   data() {
     return {
       province: [],
-      pvalue: '', // 当前省份
+      pvalue: '', // Current province
       city: [],
-      cvalue: '', // 当前省份下的城市
+      cvalue: '', // City under current provinces
       input: '',
-      cities: [] // 全国城市列表
+      cities: [] // National city list
     }
   },
   watch: {
@@ -79,15 +79,12 @@ export default {
     ...mapMutations({
       setPosition: 'geo/setPosition'
     }),
-    querySearchAsync: _.debounce(async function(query, cb) { // _.debounce() 延时函数
+    querySearchAsync: _.debounce(async function(query, cb) { // _.debounce() Delay function
       if (this.cities.length) {
-        cb(this.cities.filter(item => item.value.indexOf(query) > -1)) // 搜‘北’，显示所有带‘北’的数据
+        cb(this.cities.filter(item => item.value.indexOf(query) > -1)) // Search 北 to show all data with 北
       } else {
-        // 线上数据
-        // 要实现本地化数据，要穿参数过去，然后 server 接受后修改代码
-        // const { status, data: { city }} = await this.$axios.get('/geo/city', { params: { city: this.cvalue }})
-        // 本地化数据
-        const { status, data: { city }} = await this.$axios.get('/geo/city')
+        // const { status, data: { city }} = await this.$axios.get('/geo/city', { params: { city: this.cvalue }}) // Online data
+        const { status, data: { city }} = await this.$axios.get('/geo/city') // Localized data
         // console.log(city, -1)
         if (status === 200) {
           let wantArray

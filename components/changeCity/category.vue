@@ -50,8 +50,8 @@ export default {
           p = pyjs
             .getFullChars(value.name)
             .toLocaleLowerCase()
-            .slice(0, 1) // p: 城市首字母小写拼音
-          c = p.charCodeAt(0) // 首字母小写拼音对应 ascii
+            .slice(0, 1) // p: City initials lowercase pinyin
+          c = p.charCodeAt(0) // Initial letter lowercase pinyin ascii
           if (c > 96 && c < 123) { // a-z
             if (!d[p]) {
               d[p] = []
@@ -60,13 +60,13 @@ export default {
           }
         }
       }
-      for (const [k, v] of Object.entries(d)) { // 获取对应的键值对
+      for (const [k, v] of Object.entries(d)) { // Get the corresponding key-value pair
         blocks.push({
           title: k.toUpperCase(),
           city: v
         })
       }
-      blocks.sort((a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0)) // 排序
+      blocks.sort((a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0)) // Sort
       this.block = blocks
     }
   },
