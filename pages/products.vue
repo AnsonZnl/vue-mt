@@ -40,13 +40,11 @@ export default {
       point: []
     }
   },
-  // 获取数据
   async asyncData(ctx) {
     const keyword = ctx.query.keyword
     const city = ctx.store.state.geo.position.city
     const { status, data: { count, pois }} = await ctx.$axios.get('/search/resultsByKeywords', {
       params: {
-        // 传递到后端的数据
         keyword,
         city
       }
@@ -60,7 +58,7 @@ export default {
     // console.log(status2, areas, types)
     if (status === 200 && count > 0 && status2 === 200) {
       return {
-        // 没有图片的数据过滤出去
+        // Data without images is filtered out
         list: pois.filter(item => item.photos.length).map(item => {
           return {
             type: item.type,

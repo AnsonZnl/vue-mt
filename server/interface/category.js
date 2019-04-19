@@ -10,7 +10,7 @@ const router = new Router({
 
 // products.vue
 router.get('/crumbs', async ctx => {
-  /* 操作本地数据库 */
+  // Operating a local database
   const result = await Categroy.findOne({
     city: ctx.query.city
   })
@@ -25,7 +25,7 @@ router.get('/crumbs', async ctx => {
       types: []
     }
   }
-  /* 线上服务 */
+  // Online service
   // const { status, data: { areas, types }} = await axios.get(`${Config.requestUrl}/categroy/crumbs`, {
   //   params: {
   //     city: ctx.query.city.replace('市', '') || '北京',

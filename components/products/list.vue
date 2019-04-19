@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="m-products-list">
-    <!-- 智能排序 -->
+    <!-- Intelligent sorting -->
     <dl>
       <dd
         v-for="(item, index) in nav"
@@ -66,28 +66,24 @@ export default {
   methods: {
     navSelect(txt, index) {
       if (txt === '价格最低') {
-        // 价格
         this.list.sort((a, b) => a.price - b.price)
         this.nav.forEach(item => {
           item.active = false
         })
         this.nav[index].active = true
       } else if (txt === '人气最高') {
-        // 评论数量
         this.list.sort((a, b) => b.comment - a.comment)
         this.nav.forEach(item => {
           item.active = false
         })
         this.nav[index].active = true
       } else if (txt === '评价最高') {
-        // 评分
         this.list.sort((a, b) => b.rate - a.rate)
         this.nav.forEach(item => {
           item.active = false
         })
         this.nav[index].active = true
       } else if (txt === '智能排序') {
-        // 名字字母顺序
         this.list.sort((a, b) => a.name.charCodeAt(0) - b.name.charCodeAt(0))
         this.nav.forEach(item => {
           item.active = false

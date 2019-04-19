@@ -27,8 +27,7 @@ export default {
   data() {
     return {
       id: `map`,
-      // 高德地图 key
-      key: '8c9a4f3e2f7de635c9982cc8b8cda229'
+      key: '8c9a4f3e2f7de635c9982cc8b8cda229' // 高德地图 key
     }
   },
   watch: {
@@ -60,7 +59,7 @@ export default {
         marker.setMap(map)
       })
     }
-    // 异步加载 js api
+    // Asynchronous loading js api
     const url = `https://webapi.amap.com/maps?v=1.4.10&key=${self.key}&callback=onmaploaded`
     const jsapi = document.createElement('script')
     jsapi.charset = 'utf-8'
