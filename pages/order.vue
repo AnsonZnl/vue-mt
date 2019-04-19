@@ -94,12 +94,10 @@ export default {
     }
   },
   methods: {
-    // 切换 全部订单 待付款 待使用 待评价
     handleClick(tab) {
       this.activeName = tab.name
     }
   },
-  // 获取数据
   async asyncData(ctx) {
     const { status, data: { code, list }} = await ctx.$axios.post('/order/getOrders')
     if (status === 200 && code === 0 && list.length) {
