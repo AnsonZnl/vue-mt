@@ -13,12 +13,12 @@ const router = new Router({
 
 // [postman](http://localhost:3000/geo/getPosition)
 router.get('/getPosition', async ctx => {
-  const result = await Positon.findOne() // 操作本地数据库
+  const result = await Positon.findOne() // Operating a local database
   ctx.body = {
     province: result.province,
     city: result.city
   }
-  // 线上服务
+  // Online service
   // const {
   //   status,
   //   data: { province, city }
@@ -38,11 +38,10 @@ router.get('/getPosition', async ctx => {
 
 // [postman](http://localhost:3000/geo/menu)
 router.get('/menu', async ctx => {
-  const result = await Menu.findOne() // 操作本地数据库
+  const result = await Menu.findOne()
   ctx.body = {
     menu: result.menu
   }
-  // 线上服务
   // const {
   //   status,
   //   data: { menu }
@@ -60,7 +59,7 @@ router.get('/menu', async ctx => {
 
 // [postman](http://localhost:3000/geo/province)
 router.get('/province', async ctx => {
-  const result = await Province.find() // 操作本地数据库
+  const result = await Province.find()
   ctx.body = {
     province: result.map(item => {
       return {
@@ -69,7 +68,6 @@ router.get('/province', async ctx => {
       }
     })
   }
-  // 线上服务
   // const {
   //   status,
   //   data: { province }
@@ -79,16 +77,15 @@ router.get('/province', async ctx => {
   // }
 })
 
-// http://localhost:3000/geo/province/110000
-router.get('/province/:id', async ctx => { // 获取对应省份城市
-  const result = await City.findOne({ id: ctx.params.id }) // 操作本地数据库
+// [postman](http://localhost:3000/geo/province/110000)
+router.get('/province/:id', async ctx => { // Get the corresponding province city
+  const result = await City.findOne({ id: ctx.params.id })
   ctx.body = {
     code: 0,
     city: result.value.map(item => {
       return { province: item.province, id: item.id, name: item.name }
     })
   }
-  // 线上服务
   // const {
   //   status,
   //   data: { city }
@@ -108,7 +105,7 @@ router.get('/province/:id', async ctx => { // 获取对应省份城市
 
 // [postman](http://localhost:3000/geo/city)
 router.get('/city', async ctx => {
-  const result = await City.find() // 操作本地数据库
+  const result = await City.find()
   ctx.body = {
     city: result.map(item => {
       return {
@@ -116,7 +113,6 @@ router.get('/city', async ctx => {
       }
     })
   }
-  // 线上服务
   // const {
   //   status,
   //   data: { city }
@@ -134,7 +130,7 @@ router.get('/city', async ctx => {
 
 // [postman](http://localhost:3000/geo/city)
 router.get('/hotCity', async ctx => {
-  const result = await City.find() // 操作本地数据库 bug! 没有返回完全的城市名
+  const result = await City.find() // bug! Did not return the full city name
   ctx.body = {
     city: result.map(item => {
       const value = item.value
@@ -144,7 +140,6 @@ router.get('/hotCity', async ctx => {
       }
     })
   }
-  // 线上服务
   // const {
   //   status,
   //   data: { hots }
