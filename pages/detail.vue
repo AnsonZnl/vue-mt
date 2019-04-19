@@ -60,7 +60,6 @@ export default {
       return this.list.filter(item => item.photos.length).length
     }
   },
-  // 获取数据
   async asyncData(ctx) {
     const { status, data: { product, more: list, login, type, keyword }} = await ctx.$axios.get('/search/products', {
       params: {
