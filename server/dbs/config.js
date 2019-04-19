@@ -1,24 +1,24 @@
 export default {
-  dbs: 'mongodb://127.0.0.1:27017/student', // 设置地址, 默认端口, student: 数据库名称
+  dbs: 'mongodb://127.0.0.1:27017/student', // Set address, Default port, student: Name database
   redis: {
-    get host() { // 默认主机
+    get host() { // Default host
       return '127.0.0.1'
     },
-    get port() { // 默认端口
+    get port() { // Default port
       return 6379
     }
   },
   smtp: {
-    get host() { // 默认腾讯邮箱
+    get host() { // Default Tencent mailbox
       return 'smtp.qq.com'
     },
-    get user() { // 自己接受验证码的腾讯邮箱
+    get user() { // Tencent mailbox that accepts the verification code
       return '583520052@qq.com'
     },
-    get pass() { // SMTP 腾讯邮箱授权码
+    get pass() { // SMTP Tencent mailbox authorization code
       return 'vjalqgcbjqdhbbfb'
     },
-    get code() { // 验证码生成
+    get code() { // Verification code generation
       return () => {
         return Math.random()
           .toString(16)
@@ -26,7 +26,7 @@ export default {
           .toUpperCase()
       }
     },
-    get expire() { // 验证码过期时间
+    get expire() { // Verification code expiration time
       return () => {
         return new Date().getTime() + 60 * 60 * 1000
       }

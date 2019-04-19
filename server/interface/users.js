@@ -20,7 +20,7 @@ router.post('/signup', async ctx => {
     password
   } = ctx.request.body // get user upload data (register.vue pass parameter)
   if (code) {
-    const saveCode = await Store.hget(`nodemail:${username}`, 'code') // redis hget() verifycode, hget() '/sigin' Store.hset()
+    const saveCode = await Store.hget(`nodemail:${username}`, 'code') // redis hget() verifycode, '/signin' Store.hset()
     const saveExpire = await Store.hget(`nodemail:${username}`, 'expire')
     if (code === saveCode) {
       if (new Date().getTime() - saveExpire > 0) {
@@ -126,7 +126,7 @@ router.post('/verify', async(ctx, next) => {
   const transporter = nodeMailer.createTransport({ // send email config
     host: Email.smtp.host,
     port: 587,
-    secure: false, // false: 监听其他端口
+    secure: false, // false: Listen to other ports
     auth: {
       user: Email.smtp.user,
       pass: Email.smtp.pass
@@ -167,7 +167,7 @@ router.post('/verify', async(ctx, next) => {
 
 router.get('/exit', async(ctx, next) => {
   await ctx.logout()
-  if (!ctx.isAuthenticated()) { // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
+  if (!ctx.isAuthenticated()) { // isAuthenticated: Determine whether to authenticate (Check if it is currently logged in)
     ctx.body = {
       code: 0
     }
@@ -179,8 +179,8 @@ router.get('/exit', async(ctx, next) => {
 })
 
 router.get('/getUser', async ctx => {
-  if (ctx.isAuthenticated()) { // isAuthenticated: 判断是否认证 (检测现在是否是登录状态)
-    const { username, email } = ctx.session.passport.user // ctx.session.passport.user: 拿到 passport-koa 用户名和密码
+  if (ctx.isAuthenticated()) {
+    const { username, email } = ctx.session.passport.user // ctx.session.passport.user: get passport-koa user name and password
     ctx.body = {
       user: username,
       email

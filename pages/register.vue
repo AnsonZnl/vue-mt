@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import CryptoJS from 'crypto-js' // 加密
+import CryptoJS from 'crypto-js' // encryption
 export default {
   layout: 'blank',
   data() {
@@ -135,7 +135,7 @@ export default {
             trigger: 'blur'
           },
           {
-            validator: (rule, value, callback) => { // 自定义规则
+            validator: (rule, value, callback) => { // Custom rule
               if (value === '') {
                 callback(new Error('请再次输入密码'))
               } else if (value !== this.ruleForm.pwd) {
@@ -158,24 +158,24 @@ export default {
       if (this.timerid) {
         return false
       }
-      this.$refs['ruleForm'].validateField('name', valid => { // 验证用户名是否通过校验 (element-ui 方法), 如果有值表示没有通过
+      this.$refs['ruleForm'].validateField('name', valid => { // Verify that the username passed the check (element-ui method), If there is a value indicating that it has not passed check
         namePass = valid
       })
       if (namePass) {
         return false
       }
-      this.$refs['ruleForm'].validateField('email', valid => { // 检测邮箱是否通过校验 (element-ui 方法), 如果有值表示没有通过
+      this.$refs['ruleForm'].validateField('email', valid => {
         emailPass = valid
       })
       this.statusMsg = ''
-      if (!namePass && !emailPass) { // 如果用户名, 邮箱都通过 (有值则表示没通过)
+      if (!namePass && !emailPass) { // passed the check
         that.$axios
           .post('/users/verify', {
-            username: encodeURIComponent(that.ruleForm.name), // encodeURIComponent: 对中文进行编码
+            username: encodeURIComponent(that.ruleForm.name), // encodeURIComponent: Encoding Chinese
             email: that.ruleForm.email
           })
           .then(({ status, data }) => {
-            if (status === 200 && data && data.code === 0) { // 发送成功后, 验证码有效倒计时
+            if (status === 200 && data && data.code === 0) { // After successful delivery, Verification code valid countdown
               let count = 60
               that.statusMsg = `验证码已发送，剩余${count--}秒`
               that.timerid = setInterval(() => {
@@ -192,12 +192,12 @@ export default {
       }
     },
     register() {
-      this.$refs['ruleForm'].validate(valid => { // 验证表单
-        if (valid) { // 验证全部通过
+      this.$refs['ruleForm'].validate(valid => { // Verification form
+        if (valid) { // Verify all passed
           this.$axios
             .post('/users/signup', {
-              username: window.encodeURIComponent(this.ruleForm.name), // encodeURIComponent: 对中文进行编码
-              password: CryptoJS.MD5(this.ruleForm.pwd).toString(), // CryptoJS.MD5 加密
+              username: window.encodeURIComponent(this.ruleForm.name),
+              password: CryptoJS.MD5(this.ruleForm.pwd).toString(), // CryptoJS.MD5 encryption
               email: this.ruleForm.email,
               code: this.ruleForm.code
             })

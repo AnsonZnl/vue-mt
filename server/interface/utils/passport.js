@@ -18,7 +18,7 @@ passport.use( // [Configure Strategy](https://www.npmjs.com/package/passport-loc
   })
 )
 
-passport.serializeUser(function(user, done) { // 用户信息保留在 session 存储中, defulat
+passport.serializeUser(function(user, done) { // User information is retained in session, defulat
   done(null, user)
 })
 

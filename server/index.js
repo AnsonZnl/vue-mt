@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import mongoose from 'mongoose'
 import consola from 'consola' // Elegant Console Logger for Node.js and Browser
-import bodyParser from 'koa-bodyparser' // 解析 body 的中间件，在 koa 中 this.body 就能直接获取到数据。post 参数获取
+import bodyParser from 'koa-bodyparser' // Parsing the middleware of the body, this.body can get the data directly in koa. Post parameter acquisition
 import session from 'koa-generic-session' // supports Delay session getter
 import Redis from 'koa-redis' // Redis storage for koa session middleware/cache.
 import json from 'koa-json' // JSON pretty-printed response middleware.
@@ -30,7 +30,7 @@ app.use(
     store: new Redis()
   })
 )
-// 开启 koa-passport 对 session 的支持
+// open koa-passport Support for session
 app.use(passport.initialize())
 app.use(passport.session())
 app.use( // post handle
@@ -40,7 +40,7 @@ app.use( // post handle
 )
 app.use(json())
 
-mongoose.connect( // 连接数据库
+mongoose.connect( // Connect to the database
   dbConfig.dbs,
   {
     useNewUrlParser: true
@@ -57,7 +57,7 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
-  // 引进路由
+  // Introducing routing
   app.use(users.routes()).use(users.allowedMethods())
   app.use(geo.routes()).use(geo.allowedMethods())
   app.use(search.routes()).use(search.allowedMethods())
