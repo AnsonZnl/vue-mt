@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      kind: '' // Recording mouse hover status
+      kind: '' // record mouse hover state
       // menu: [
       //   {
       //     type: 'food',

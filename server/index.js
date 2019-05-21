@@ -33,12 +33,14 @@ app.use(
 // open koa-passport Support for session
 app.use(passport.initialize())
 app.use(passport.session())
+
 app.use( // post handle
   bodyParser({
     extendTypes: ['json', 'form', 'text']
   })
 )
-app.use(json())
+
+app.use(json()) // data pretty
 
 mongoose.connect( // Connect to the database
   dbConfig.dbs,

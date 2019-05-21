@@ -32,6 +32,6 @@ export default {
       }
     }
   },
-  sign: 'a3c9fe0782107295ee9f1709edd15218',
-  requestUrl: 'http://cp-tools.cn'
+  sign: 'a3c9fe0782107295ee9f1709edd15218', // 请求线上作者定义的数据才用到
+  requestUrl: 'http://cp-tools.cn' // 请求线上作者定义的数据才用到
 }
